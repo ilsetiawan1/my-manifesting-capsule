@@ -19,6 +19,7 @@ export default function CreateCapsuleForm({
   onClose,
   onSuccess,
 }: CreateCapsuleFormProps) {
+  const [authorName, setAuthorName] = useState("");
   const [targetName, setTargetName] = useState("");
   const [messageContent, setMessageContent] = useState("");
   const [unlockAt, setUnlockAt] = useState("");
@@ -43,6 +44,7 @@ export default function CreateCapsuleForm({
       targetName,
       messageContent,
       unlockAt: unlockAt ? new Date(unlockAt) : new Date(NaN),
+      authorName,
     };
 
     // Validasi client-side menggunakan Zod
@@ -62,13 +64,15 @@ export default function CreateCapsuleForm({
 
     try {
       const res = await createCapsuleAction({
-        targetName,
-        messageContent,
-        unlockAt: new Date(unlockAt),
+        targetName: validation.data.targetName,
+        messageContent: validation.data.messageContent,
+        unlockAt: validation.data.unlockAt,
+        authorName: validation.data.authorName,
       });
 
       if (res.success) {
         toast.success("🔒 Kapsulmu berhasil dikunci!");
+        setAuthorName("");
         setTargetName("");
         setMessageContent("");
         setUnlockAt("");
@@ -130,6 +134,30 @@ export default function CreateCapsuleForm({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4 flex-1 overflow-y-auto max-h-[75vh]">
+          {/* Author Name */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+              Nama Kamu (opsional)
+            </label>
+            <input
+              type="text"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+              placeholder="Anonim"
+              className={cn(
+                "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-sm border focus:outline-none focus:ring-2 transition-all",
+                errors.authorName
+                  ? "border-rose-300 focus:ring-rose-500/20"
+                  : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
+              )}
+            />
+            {errors.authorName && (
+              <p className="text-rose-500 text-[10px] font-semibold mt-1 animate-in fade-in duration-200">
+                {errors.authorName}
+              </p>
+            )}
+          </div>
+
           {/* Target Name */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">

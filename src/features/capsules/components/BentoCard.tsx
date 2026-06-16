@@ -91,42 +91,43 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
         >
           {formattedDate}
         </span>
-        <div className="flex items-center gap-1.5">
-          <div
-            className={cn(
-              "p-1.5 rounded-full",
-              capsule.isLocked
-                ? "bg-slate-200/60 text-slate-500"
-                : "bg-blue-800/80 text-blue-200"
-            )}
-          >
-            {capsule.isLocked ? (
+        {capsule.isLocked && (
+          <div className="flex items-center gap-1.5">
+            <div className="p-1.5 rounded-full bg-slate-200/60 text-slate-500">
               <Lock className="size-3.5" />
-            ) : (
-              <Unlock className="size-3.5" />
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Middle Section: Target & Blurred/Normal Message */}
+      {/* Middle Section: Target, Author, & Blurred/Normal Message */}
       <div className="flex-1 flex flex-col justify-center my-3 z-10">
-        <h3
-          className={cn(
-            "text-xs font-semibold uppercase tracking-wider mb-1",
-            capsule.isLocked ? "text-slate-400" : "text-blue-300"
-          )}
-        >
-          Untuk: <span className="font-bold text-sm tracking-normal capitalize">{capsule.targetName}</span>
-        </h3>
+        <div className="flex items-center justify-between mb-1.5">
+          <span
+            className={cn(
+              "text-[9px] font-bold tracking-wider",
+              capsule.isLocked ? "text-slate-400" : "text-blue-300"
+            )}
+          >
+            UNTUK: <span className="font-extrabold text-[11px] tracking-normal capitalize">{capsule.targetName}</span>
+          </span>
+          <span
+            className={cn(
+              "text-[9px] font-medium italic",
+              capsule.isLocked ? "text-slate-400/80" : "text-blue-200/80"
+            )}
+          >
+            ✍️ oleh {capsule.authorName || "Anonim"}
+          </span>
+        </div>
         
         {capsule.isLocked ? (
-          <p className="text-[13px] text-slate-400/50 line-clamp-2 select-none filter blur-[4px] pointer-events-none font-mono">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam optio.
+          <p className="text-[12px] text-slate-400/50 line-clamp-2 select-none filter blur-[5px] pointer-events-none font-mono">
+            Lorem ipsum dolor sit amet-consectetur adipisicing elit-architecto laboriosam optio.
           </p>
         ) : (
-          <p className="text-[13px] text-blue-100 font-medium line-clamp-2 leading-relaxed">
-            {capsule.messageContent || "Konten kapsul terbuka..."}
+          <p className="text-[12px] text-blue-100 font-medium line-clamp-2 leading-relaxed italic">
+            "{capsule.messageContent || "Harapan telah terbuka..."}"
           </p>
         )}
       </div>

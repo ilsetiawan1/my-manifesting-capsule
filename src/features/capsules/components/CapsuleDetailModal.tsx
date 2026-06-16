@@ -193,8 +193,11 @@ export default function CapsuleDetailModal({
               >
                 KAPSUL MANIFESTASI
               </span>
-              <h2 className="text-lg font-black tracking-tight leading-tight capitalize">
-                Untuk: {capsule.targetName}
+              <h2 className="text-lg font-black tracking-tight leading-tight capitalize flex items-center justify-between gap-4">
+                <span>Untuk: {capsule.targetName}</span>
+                <span className={cn("text-xs font-semibold italic normal-case", capsule.isLocked ? "text-slate-500" : "text-blue-200")}>
+                  ✍️ oleh {capsule.authorName || "Anonim"}
+                </span>
               </h2>
             </div>
 
