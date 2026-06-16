@@ -33,22 +33,22 @@ export default function Sidebar({
   };
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 h-screen sticky top-0 bg-white border-r border-slate-100 p-6 justify-between select-none">
+    <aside className="hidden lg:flex flex-col w-80 h-screen sticky top-0 bg-white border-r border-slate-100 p-6 justify-between select-none">
       <div className="space-y-8">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Image
             src="/logo/logo.png"
             alt="The Manifesting Capsule"
-            width={32}
-            height={32}
-            className="rounded-lg"
+            width={40}
+            height={40}
+            className="rounded-xl object-contain shadow-sm"
           />
           <div>
-            <h1 className="text-base font-black tracking-tight text-slate-900 leading-none">
+            <h1 className="text-[17px] font-black tracking-tight text-slate-900 leading-none whitespace-nowrap">
               The Manifesting Capsule
             </h1>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5 block">
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1 block">
               Silent Sanctuary
             </span>
           </div>
