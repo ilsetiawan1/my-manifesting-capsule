@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { Compass, Settings, Plus, Heart, Lock, Unlock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { InstallPWAButton } from "./InstallPWAButton";
 
 interface SidebarProps {
   activeTab: "explore" | "settings";
@@ -63,8 +62,6 @@ export default function Sidebar({
           <Plus className="size-4 stroke-[3]" />
           <span>Drop Capsule</span>
         </button>
-
-        <InstallPWAButton />
 
         {/* Navigation Tabs */}
         <div className="space-y-1.5">
