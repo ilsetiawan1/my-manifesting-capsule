@@ -114,7 +114,7 @@ export default function CreateCapsuleForm({
           onChange={(e) => setAuthorName(e.target.value)}
           placeholder="Anonim"
           className={cn(
-            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-sm border focus:outline-none focus:ring-2 transition-all",
+            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
             errors.authorName
               ? "border-rose-300 focus:ring-rose-500/20"
               : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
@@ -138,7 +138,7 @@ export default function CreateCapsuleForm({
           onChange={(e) => setTargetName(e.target.value)}
           placeholder="Untuk siapa manifestasi ini? (e.g. Diriku)"
           className={cn(
-            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-sm border focus:outline-none focus:ring-2 transition-all",
+            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
             errors.targetName
               ? "border-rose-300 focus:ring-rose-500/20"
               : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
@@ -162,7 +162,7 @@ export default function CreateCapsuleForm({
           rows={4}
           placeholder="Tulis mimpi, harapan, dan manifestasimu di sini..."
           className={cn(
-            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-sm border focus:outline-none focus:ring-2 transition-all resize-none",
+            "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all resize-none",
             errors.messageContent
               ? "border-rose-300 focus:ring-rose-500/20"
               : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
@@ -194,7 +194,7 @@ export default function CreateCapsuleForm({
             min={getTomorrowDateString()}
             onChange={(e) => setUnlockAt(e.target.value)}
             className={cn(
-              "w-full bg-slate-50 text-slate-900 px-4 py-3 rounded-2xl text-sm border focus:outline-none focus:ring-2 transition-all",
+              "w-full bg-slate-50 text-slate-900 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
               errors.unlockAt
                 ? "border-rose-300 focus:ring-rose-500/20"
                 : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
@@ -273,6 +273,12 @@ export default function CreateCapsuleForm({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 220 }}
+        drag="y"
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.8 }}
+        onDragEnd={(e, info) => {
+          if (info.offset.y > 120) onClose();
+        }}
         className="relative w-full max-w-md bg-white rounded-t-[2.5rem] border-t border-slate-100 shadow-[0_-12px_40px_rgba(0,0,0,0.12)] p-6 pb-8 z-10 flex flex-col pointer-events-auto"
       >
         {/* Drag Handle */}
@@ -296,7 +302,7 @@ export default function CreateCapsuleForm({
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 flex-1 overflow-y-auto max-h-[75vh]">
+        <form onSubmit={handleSubmit} className="space-y-4 flex-1 overflow-y-auto max-h-[80vh] pb-24">
           {formFieldsContent}
         </form>
       </motion.div>
