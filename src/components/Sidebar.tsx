@@ -33,7 +33,7 @@ export default function Sidebar({
   };
 
   return (
-    <aside className="hidden lg:flex flex-col w-80 h-screen sticky top-0 bg-white border-r border-slate-100 p-6 justify-between select-none">
+    <aside className="hidden lg:flex flex-col w-80 h-screen sticky top-0 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 p-6 justify-between select-none transition-colors duration-200">
       <div className="space-y-8">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function Sidebar({
             className="rounded-xl object-contain shadow-sm"
           />
           <div>
-            <h1 className="text-[17px] font-black tracking-tight text-slate-900 leading-none whitespace-nowrap">
+            <h1 className="text-[17px] font-black tracking-tight text-slate-900 dark:text-white leading-none whitespace-nowrap">
               The Manifesting Capsule
             </h1>
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1 block">
@@ -70,8 +70,8 @@ export default function Sidebar({
             className={cn(
               "w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-98",
               activeTab === "explore"
-                ? "bg-slate-50 text-blue-600"
-                : "text-slate-500 hover:bg-slate-50/50 hover:text-slate-800"
+                ? "bg-slate-50 dark:bg-slate-850 text-blue-600 dark:text-blue-400"
+                : "text-slate-500 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 hover:text-slate-800 dark:hover:text-slate-200"
             )}
           >
             <Compass className="size-5" />
@@ -82,8 +82,8 @@ export default function Sidebar({
             className={cn(
               "w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-98",
               activeTab === "settings"
-                ? "bg-slate-50 text-blue-600"
-                : "text-slate-500 hover:bg-slate-50/50 hover:text-slate-800"
+                ? "bg-slate-50 dark:bg-slate-850 text-blue-600 dark:text-blue-400"
+                : "text-slate-500 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 hover:text-slate-800 dark:hover:text-slate-200"
             )}
           >
             <Settings className="size-5" />
@@ -107,8 +107,8 @@ export default function Sidebar({
                     className={cn(
                       "w-full text-left px-4 py-2 rounded-xl text-xs font-semibold transition-all",
                       vibeFilter === v
-                        ? "bg-blue-50 text-blue-600"
-                        : "text-slate-500 hover:bg-slate-50/50 hover:text-slate-800"
+                        ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
+                        : "text-slate-500 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 hover:text-slate-800 dark:hover:text-slate-200"
                     )}
                   >
                     {v}
@@ -122,14 +122,14 @@ export default function Sidebar({
               <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                 Feed Section
               </span>
-              <div className="grid grid-cols-2 p-1 bg-slate-100 rounded-xl">
+              <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
                 <button
                   onClick={() => setActiveSubTab("global")}
                   className={cn(
                     "py-1.5 text-center text-xs font-semibold rounded-lg transition-all",
                     activeSubTab === "global"
-                      ? "bg-white text-slate-800 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                      ? "bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 shadow-sm"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-350"
                   )}
                 >
                   Global
@@ -139,8 +139,8 @@ export default function Sidebar({
                   className={cn(
                     "py-1.5 text-center text-xs font-semibold rounded-lg transition-all",
                     activeSubTab === "history"
-                      ? "bg-white text-slate-800 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                      ? "bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 shadow-sm"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-350"
                   )}
                 >
                   History
@@ -152,21 +152,21 @@ export default function Sidebar({
       </div>
 
       {/* Live Stats Counter (Desktop only) */}
-      <div className="p-4 bg-slate-50 border border-slate-100 rounded-3xl space-y-3 shadow-inner">
+      <div className="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-3xl space-y-3 shadow-inner">
         <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
           Live Stats
         </span>
         <div className="grid grid-cols-3 gap-2 text-center">
           <div className="space-y-1">
-            <span className="block text-sm font-black text-slate-800">{stats.total}</span>
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{stats.total}</span>
             <span className="block text-[9px] text-slate-400 font-bold uppercase">Total</span>
           </div>
           <div className="space-y-1">
-            <span className="block text-sm font-black text-slate-800">{stats.unlocked}</span>
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{stats.unlocked}</span>
             <span className="block text-[9px] text-slate-400 font-bold uppercase">Open</span>
           </div>
           <div className="space-y-1">
-            <span className="block text-sm font-black text-slate-800">{stats.resonateCount}</span>
+            <span className="block text-sm font-black text-slate-800 dark:text-slate-100">{stats.resonateCount}</span>
             <span className="block text-[9px] text-slate-400 font-bold uppercase">Vibes</span>
           </div>
         </div>

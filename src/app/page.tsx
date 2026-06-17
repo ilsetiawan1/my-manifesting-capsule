@@ -102,7 +102,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
       {/* Desktop Sidebar */}
       <Sidebar
         activeTab={activeTab === "settings" ? "settings" : "explore"}
@@ -116,7 +116,7 @@ export default function Home() {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 max-w-5xl mx-auto px-8 py-8 lg:max-h-screen lg:overflow-y-auto pb-28 lg:pb-8 bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <div className="flex-1 flex flex-col min-w-0 max-w-5xl mx-auto px-8 py-8 lg:max-h-screen lg:overflow-y-auto pb-28 lg:pb-8 bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-slate-950/20">
         {/* Header dengan Ghost Search */}
         <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
@@ -124,14 +124,14 @@ export default function Home() {
         {activeTab !== "settings" && (
           <div className="flex flex-col gap-3 px-6 py-3 lg:hidden">
             {/* Sub-tab Switcher */}
-            <div className="grid grid-cols-2 p-1 bg-slate-100/80 rounded-2xl border border-slate-200/10">
+            <div className="grid grid-cols-2 p-1 bg-slate-100/80 dark:bg-slate-800 rounded-2xl border border-slate-200/10 dark:border-slate-700/50">
               <button
                 onClick={() => setActiveTab("explore")}
                 className={cn(
                   "py-2.5 text-center text-xs font-bold rounded-xl transition-all",
                   activeTab === "explore"
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-400 hover:text-slate-600"
+                    ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
                 )}
               >
                 Global Feed
@@ -141,8 +141,8 @@ export default function Home() {
                 className={cn(
                   "py-2.5 text-center text-xs font-bold rounded-xl transition-all",
                   activeTab === "history"
-                    ? "bg-white text-slate-900 shadow-sm"
-                    : "text-slate-400 hover:text-slate-600"
+                    ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                    : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
                 )}
               >
                 My History
@@ -158,8 +158,8 @@ export default function Home() {
                   className={cn(
                     "px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all active:scale-95",
                     vibeFilter === v
-                      ? "bg-blue-900 text-white shadow-sm"
-                      : "bg-slate-200/50 text-slate-500 hover:bg-slate-200"
+                      ? "bg-blue-900 dark:bg-blue-800 text-white shadow-sm"
+                      : "bg-slate-200/50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                   )}
                 >
                   {v}
@@ -175,7 +175,7 @@ export default function Home() {
             /* Explore Feed View (Bento Grid) */
             <div className="space-y-4">
               <div className="hidden lg:flex items-center justify-between mb-6">
-                <h2 className="text-xl font-black tracking-tight text-slate-800">
+                <h2 className="text-xl font-black tracking-tight text-slate-800 dark:text-slate-100">
                   {activeTab === "explore" ? "Manifest Feed" : "My Capsule History"}
                 </h2>
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-mono">

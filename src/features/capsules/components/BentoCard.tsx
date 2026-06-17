@@ -74,15 +74,13 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  })}`;
-
-  return (
+  })}`;  return (
     <div
       onClick={() => onCardClick(capsule)}
       className={cn(
         "relative flex flex-col justify-between h-56 min-h-[200px] p-5 rounded-[2rem] cursor-pointer transition-all duration-300 select-none overflow-hidden group",
         capsule.isLocked
-          ? "bg-slate-100 hover:bg-slate-200/70 border border-slate-200/60 shadow-sm"
+          ? "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200/70 dark:hover:bg-slate-700/70 border border-slate-200/60 dark:border-slate-700/50 shadow-sm"
           : "bg-blue-900 text-white shadow-lg shadow-blue-950/10 hover:shadow-xl hover:shadow-blue-950/20"
       )}
     >
@@ -91,14 +89,14 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
         <span
           className={cn(
             "text-[10px] font-semibold tracking-wider uppercase",
-            capsule.isLocked ? "text-slate-400" : "text-blue-200"
+            capsule.isLocked ? "text-slate-400 dark:text-slate-500" : "text-blue-200"
           )}
         >
           {formattedDate}
         </span>
         {capsule.isLocked && (
           <div className="flex items-center gap-1.5">
-            <div className="p-1.5 rounded-full bg-slate-200/60 text-slate-500">
+            <div className="p-1.5 rounded-full bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300">
               <Lock className="size-3.5" />
             </div>
           </div>
@@ -111,7 +109,7 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
           <span
             className={cn(
               "text-[9px] font-bold tracking-wider",
-              capsule.isLocked ? "text-slate-400" : "text-blue-300"
+              capsule.isLocked ? "text-slate-400 dark:text-slate-500" : "text-blue-300"
             )}
           >
             UNTUK: <span className="font-extrabold text-[11px] tracking-normal capitalize">{capsule.targetName}</span>
@@ -119,7 +117,7 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
           <span
             className={cn(
               "text-[9px] font-medium italic",
-              capsule.isLocked ? "text-slate-400" : "text-blue-200"
+              capsule.isLocked ? "text-slate-400 dark:text-slate-500" : "text-blue-200"
             )}
           >
             ✍️ oleh {capsule.authorName || "Anonim"}
@@ -127,7 +125,7 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
         </div>
         
         {capsule.isLocked ? (
-          <p className="text-[12px] text-slate-400/50 line-clamp-2 select-none filter blur-[5px] pointer-events-none font-mono">
+          <p className="text-[12px] text-slate-400/50 dark:text-slate-500/50 line-clamp-2 select-none filter blur-[5px] pointer-events-none font-mono">
             Lorem ipsum dolor sit amet-consectetur adipisicing elit-architecto laboriosam optio.
           </p>
         ) : (
@@ -142,10 +140,10 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
         {/* Progress Bar & Status */}
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-center mb-1 text-[9px] sm:text-[10px] tracking-tight">
-            <span className={cn("font-mono font-medium truncate", capsule.isLocked ? "text-slate-500" : "text-blue-200")}>
+            <span className={cn("font-mono font-medium truncate", capsule.isLocked ? "text-slate-550 dark:text-slate-400" : "text-blue-200")}>
               {capsule.isLocked ? `⏳ ${capsule.daysLeft} hari lagi` : "✅ Awakened"}
             </span>
-            <span className={cn("font-mono font-semibold shrink-0 ml-1", capsule.isLocked ? "text-slate-600" : "text-blue-100")}>
+            <span className={cn("font-mono font-semibold shrink-0 ml-1", capsule.isLocked ? "text-slate-600 dark:text-slate-355" : "text-blue-100")}>
               {capsule.progressPercent}%
             </span>
           </div>
@@ -153,7 +151,7 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
           <div
             className={cn(
               "w-full h-1.5 rounded-full overflow-hidden",
-              capsule.isLocked ? "bg-slate-200" : "bg-blue-950/40"
+              capsule.isLocked ? "bg-slate-200 dark:bg-slate-700" : "bg-blue-950/40"
             )}
           >
             <motion.div
@@ -177,8 +175,8 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
             "flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border text-[10px] sm:text-xs font-semibold transition-all shadow-sm active:scale-95 shrink-0",
             capsule.isLocked
               ? hasResonated
-                ? "bg-rose-50 text-rose-500 border-rose-200"
-                : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+                ? "bg-rose-50 dark:bg-rose-950/30 text-rose-500 dark:text-rose-450 border-rose-200 dark:border-rose-900/50"
+                : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
               : hasResonated
               ? "bg-rose-500/20 text-rose-300 border-rose-500/30"
               : "bg-blue-800/40 text-blue-100 border-blue-700/30 hover:bg-blue-800/60"
