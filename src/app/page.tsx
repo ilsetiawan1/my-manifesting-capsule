@@ -8,22 +8,24 @@ import SyncPanel from "@/components/SyncPanel";
 import CapsuleList from "@/features/capsules/components/CapsuleList";
 import CreateCapsuleForm from "@/features/capsules/components/CreateCapsuleForm";
 import CapsuleDetailModal from "@/features/capsules/components/CapsuleDetailModal";
+import SaveKeyModal from "@/features/capsules/components/SaveKeyModal";
 import { getPublicCapsulesAction, getMyCapsulesAction } from "@/features/capsules/actions";
 import { ClientCapsule } from "@/types";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"explore" | "settings">("explore");
-  const [activeSubTab, setActiveSubTab] = useState<"global" | "history">("global");
+  const [activeTab, setActiveTab] = useState<"explore" | "history" | "settings">("history");
   const [vibeFilter, setVibeFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedCapsule, setSelectedCapsule] = useState<ClientCapsule | null>(null);
   
   const [capsules, setCapsules] = useState<ClientCapsule[]>([]);
-  const [isPending, startTransition] = useTransition();
+  const [publicPage, setPublicPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [createdKey, setCreatedKey] = useState<string | null>(null);
 
   const [stats, setStats] = useState({
     total: 0,
@@ -32,27 +34,31 @@ export default function Home() {
   });
 
   // Fetch data capsules
-  const loadCapsules = async () => {
+  const loadCapsules = async (pageToLoad = 1, shouldAppend = false) => {
     setIsLoading(true);
     try {
-      const publicRes = await getPublicCapsulesAction(vibeFilter);
-      const myRes = await getMyCapsulesAction();
-
-      let currentList: ClientCapsule[] = [];
-      if (activeSubTab === "global") {
+      if (activeTab === "explore") {
+        const publicRes = await getPublicCapsulesAction(pageToLoad);
         if (publicRes.success && publicRes.data) {
-          currentList = publicRes.data;
+          const { capsules: newCapsules, hasMore: more } = publicRes.data;
+          setCapsules((prev) => shouldAppend ? [...prev, ...newCapsules] : newCapsules);
+          setHasMore(more);
+          setPublicPage(pageToLoad);
         }
-      } else {
+      } else if (activeTab === "history") {
+        const myRes = await getMyCapsulesAction();
         if (myRes.success && myRes.data) {
-          currentList = myRes.data;
+          setCapsules(myRes.data);
+          setHasMore(false);
         }
       }
-      setCapsules(currentList);
 
       // Hitung stats agregat unik
-      const allPublic = publicRes.success && publicRes.data ? publicRes.data : [];
-      const allMy = myRes.success && myRes.data ? myRes.data : [];
+      const publicResStats = await getPublicCapsulesAction(1, 100);
+      const myResStats = await getMyCapsulesAction();
+      
+      const allPublic = publicResStats.success && publicResStats.data ? publicResStats.data.capsules : [];
+      const allMy = myResStats.success && myResStats.data ? myResStats.data : [];
       
       const uniqueMap = new Map<string, ClientCapsule>();
       allPublic.forEach((c) => uniqueMap.set(c.id, c));
@@ -72,13 +78,19 @@ export default function Home() {
   };
 
   useEffect(() => {
-    loadCapsules();
-  }, [activeSubTab, vibeFilter]);
+    loadCapsules(1, false);
+  }, [activeTab, vibeFilter]);
 
-  // Real-time search filter di client-side
-  const filteredCapsules = capsules.filter((c) =>
-    c.targetName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Real-time search & vibe filter di client-side
+  const filteredCapsules = capsules.filter((c) => {
+    const matchesSearch = c.targetName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesVibe = vibeFilter === "All" || c.vibe === vibeFilter;
+    return matchesSearch && matchesVibe;
+  });
+
+  const handleLoadMore = () => {
+    loadCapsules(publicPage + 1, true);
+  };
 
   const handleResonateSuccess = (capsuleId: string, newCount: number) => {
     // Update local state untuk card yang aktif
@@ -93,10 +105,10 @@ export default function Home() {
     <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans">
       {/* Desktop Sidebar */}
       <Sidebar
-        activeTab={activeTab}
+        activeTab={activeTab === "settings" ? "settings" : "explore"}
         setActiveTab={setActiveTab}
-        activeSubTab={activeSubTab}
-        setActiveSubTab={setActiveSubTab}
+        activeSubTab={activeTab === "explore" ? "global" : "history"}
+        setActiveSubTab={(subTab) => setActiveTab(subTab === "global" ? "explore" : "history")}
         onAddClick={() => setIsCreateOpen(true)}
         vibeFilter={vibeFilter}
         setVibeFilter={setVibeFilter}
@@ -109,15 +121,15 @@ export default function Home() {
         <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         {/* Tab Explore Sub-Bar (Mobile & Tablet only) */}
-        {activeTab === "explore" && (
+        {activeTab !== "settings" && (
           <div className="flex flex-col gap-3 px-6 py-3 lg:hidden">
             {/* Sub-tab Switcher */}
             <div className="grid grid-cols-2 p-1 bg-slate-100/80 rounded-2xl border border-slate-200/10">
               <button
-                onClick={() => setActiveSubTab("global")}
+                onClick={() => setActiveTab("explore")}
                 className={cn(
                   "py-2.5 text-center text-xs font-bold rounded-xl transition-all",
-                  activeSubTab === "global"
+                  activeTab === "explore"
                     ? "bg-white text-slate-900 shadow-sm"
                     : "text-slate-400 hover:text-slate-600"
                 )}
@@ -125,10 +137,10 @@ export default function Home() {
                 Global Feed
               </button>
               <button
-                onClick={() => setActiveSubTab("history")}
+                onClick={() => setActiveTab("history")}
                 className={cn(
                   "py-2.5 text-center text-xs font-bold rounded-xl transition-all",
-                  activeSubTab === "history"
+                  activeTab === "history"
                     ? "bg-white text-slate-900 shadow-sm"
                     : "text-slate-400 hover:text-slate-600"
                 )}
@@ -159,19 +171,19 @@ export default function Home() {
 
         {/* Dynamic Page Views */}
         <main className="flex-1 mt-4">
-          {activeTab === "explore" ? (
+          {activeTab !== "settings" ? (
             /* Explore Feed View (Bento Grid) */
             <div className="space-y-4">
               <div className="hidden lg:flex items-center justify-between mb-6">
                 <h2 className="text-xl font-black tracking-tight text-slate-800">
-                  {activeSubTab === "global" ? "Manifest Feed" : "My Capsule History"}
+                  {activeTab === "explore" ? "Manifest Feed" : "My Capsule History"}
                 </h2>
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-mono">
                   Menampilkan {filteredCapsules.length} kapsul
                 </span>
               </div>
 
-              {isLoading ? (
+              {isLoading && capsules.length === 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 p-1">
                   {[1, 2, 3].map((i) => (
                     <div
@@ -204,21 +216,30 @@ export default function Home() {
                   ))}
                 </div>
               ) : (
-                <CapsuleList
-                  capsules={filteredCapsules}
-                  onCardClick={(capsule) => setSelectedCapsule(capsule)}
-                  onAddFirstClick={() => setIsCreateOpen(true)}
-                  isHistoryTab={activeSubTab === "history"}
-                />
+                <div className="space-y-6">
+                  <CapsuleList
+                    capsules={filteredCapsules}
+                    onCardClick={(capsule) => setSelectedCapsule(capsule)}
+                    onAddFirstClick={() => setIsCreateOpen(true)}
+                    isHistoryTab={activeTab === "history"}
+                  />
+                  {activeTab === "explore" && hasMore && (
+                    <button
+                      onClick={handleLoadMore}
+                      className="w-full py-3 rounded-2xl border border-slate-200 text-slate-500 text-sm hover:bg-slate-50 transition-colors"
+                    >
+                      Muat Lebih Banyak ✨
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           ) : (
             /* Settings View (Sync Access Key) */
             <div className="py-6">
               <SyncPanel onSyncSuccess={() => {
-                setActiveTab("explore");
-                setActiveSubTab("history");
-                loadCapsules();
+                setActiveTab("history");
+                loadCapsules(1, false);
               }} />
             </div>
           )}
@@ -227,8 +248,14 @@ export default function Home() {
 
       {/* Concave Bottom Navigation (Mobile & Tablet) */}
       <BottomNav
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        activeTab={activeTab === "settings" ? "settings" : "explore"}
+        setActiveTab={(tab) => {
+          if (tab === "settings") {
+            setActiveTab("settings");
+          } else {
+            setActiveTab("history");
+          }
+        }}
         onAddClick={() => setIsCreateOpen(true)}
       />
 
@@ -239,7 +266,19 @@ export default function Home() {
           <CreateCapsuleForm
             isOpen={isCreateOpen}
             onClose={() => setIsCreateOpen(false)}
-            onSuccess={loadCapsules}
+            onSuccess={(key) => {
+              if (key) setCreatedKey(key);
+              loadCapsules(1, false);
+            }}
+          />
+        )}
+
+        {/* Save Key Modal */}
+        {createdKey && (
+          <SaveKeyModal
+            accessKey={createdKey}
+            isOpen={!!createdKey}
+            onClose={() => setCreatedKey(null)}
           />
         )}
 
