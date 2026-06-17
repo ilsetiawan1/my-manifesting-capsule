@@ -189,28 +189,28 @@ export default function Home() {
                     <div
                       key={i}
                       className={cn(
-                        "h-56 min-h-[200px] bg-slate-100/80 border border-slate-200/40 rounded-[2rem] p-5 flex flex-col justify-between animate-pulse",
+                        "h-56 min-h-[200px] bg-slate-100/80 dark:bg-slate-900 border border-slate-200/40 dark:border-slate-800 rounded-[2rem] p-5 flex flex-col justify-between animate-pulse",
                         i === 1 ? "col-span-2 sm:col-span-1" : "col-span-1"
                       )}
                     >
                       {/* Top Header */}
                       <div className="flex justify-between items-center">
-                        <div className="h-3.5 w-24 bg-slate-200 rounded-full" />
-                        <div className="size-6 bg-slate-200 rounded-full" />
+                        <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                        <div className="size-6 bg-slate-200 dark:bg-slate-800 rounded-full" />
                       </div>
                       {/* Middle Content */}
                       <div className="space-y-3 my-3">
-                        <div className="h-3 w-16 bg-slate-200 rounded-full" />
-                        <div className="h-3.5 w-full bg-slate-200 rounded-lg" />
-                        <div className="h-3.5 w-4/5 bg-slate-200 rounded-lg" />
+                        <div className="h-3 w-16 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                        <div className="h-3.5 w-full bg-slate-200 dark:bg-slate-800 rounded-lg" />
+                        <div className="h-3.5 w-4/5 bg-slate-200 dark:bg-slate-800 rounded-lg" />
                       </div>
                       {/* Bottom Footer */}
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex-1 space-y-2">
-                          <div className="h-3.5 w-16 bg-slate-200 rounded-full" />
-                          <div className="h-1.5 w-full bg-slate-200 rounded-full" />
+                          <div className="h-3.5 w-16 bg-slate-200 dark:bg-slate-800 rounded-full" />
+                          <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full" />
                         </div>
-                        <div className="h-7 w-16 bg-slate-200 rounded-full" />
+                        <div className="h-7 w-16 bg-slate-200 dark:bg-slate-800 rounded-full" />
                       </div>
                     </div>
                   ))}
@@ -226,7 +226,7 @@ export default function Home() {
                   {activeTab === "explore" && hasMore && (
                     <button
                       onClick={handleLoadMore}
-                      className="w-full py-3 rounded-2xl border border-slate-200 text-slate-500 text-sm hover:bg-slate-50 transition-colors"
+                      className="w-full py-3 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors"
                     >
                       Muat Lebih Banyak ✨
                     </button>
