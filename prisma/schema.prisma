@@ -26,7 +26,21 @@ model Manifest {
   resonateCount  Int      @default(0) @map("resonate_count")
   unlockAt       DateTime @map("unlock_at")
   createdAt      DateTime @default(now()) @map("created_at")
+  photoUrl       String?  @map("photo_url")
+  ifNotAchieved  String?  @map("if_not_achieved")
+  ifAchieved     String?  @map("if_achieved")
 
   @@index([accessKey])
   @@map("manifests")
+}
+
+// Tambah model baru untuk profil anonim
+model Profile {
+  id          String   @id @default(uuid())
+  accessKey   String   @unique @map("access_key")
+  name        String
+  birthDate   DateTime @map("birth_date")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("profiles")
 }
