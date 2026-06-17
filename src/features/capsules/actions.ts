@@ -10,6 +10,8 @@ import {
 import { ClientCapsule, CreateCapsuleInput, ServerActionResponse } from "@/types";
 import { checkRateLimit } from "@/lib/rate-limiter";
 
+import { uploadCapsulePhoto } from "@/lib/blob";
+
 /**
  * Mendapatkan atau membuat accessKey baru di cookie
  */
@@ -45,11 +47,27 @@ export async function getActiveAccessKey(): Promise<string | null> {
  * Membuat Kapsul Baru (Drop Capsule)
  */
 export async function createCapsuleAction(
-  input: CreateCapsuleInput
+  formData: FormData
 ): Promise<ServerActionResponse<ClientCapsule>> {
   try {
+    const targetName = formData.get("targetName") as string;
+    const messageContent = formData.get("messageContent") as string;
+    const unlockAtStr = formData.get("unlockAt") as string;
+    const authorName = (formData.get("authorName") as string) || undefined;
+    const ifNotAchieved = (formData.get("ifNotAchieved") as string) || null;
+    const ifAchieved = (formData.get("ifAchieved") as string) || null;
+    const photoFile = formData.get("photo") as File | null;
+
     // 1. Validasi input
-    const validation = CreateCapsuleSchema.safeParse(input);
+    const validation = CreateCapsuleSchema.safeParse({
+      targetName,
+      messageContent,
+      unlockAt: unlockAtStr ? new Date(unlockAtStr) : new Date(NaN),
+      authorName,
+      ifNotAchieved,
+      ifAchieved,
+    });
+
     if (!validation.success) {
       return {
         success: false,
@@ -69,6 +87,20 @@ export async function createCapsuleAction(
     // 2. Ambil/buat access key dari cookie
     const { key } = await getOrCreateAccessKey();
 
+    // 2.5 Upload foto jika ada
+    let photoUrl: string | null = null;
+    if (photoFile && photoFile.size > 0 && photoFile.name !== "undefined") {
+      try {
+        photoUrl = await uploadCapsulePhoto(photoFile, key);
+      } catch (uploadErr) {
+        console.error("Gagal mengupload foto ke Vercel Blob:", uploadErr);
+        return {
+          success: false,
+          error: "Gagal mengupload foto ke penyimpanan cloud.",
+        };
+      }
+    }
+
     // 3. Simpan ke Database
     const capsule = await repository.createCapsule({
       accessKey: key,
@@ -76,6 +108,9 @@ export async function createCapsuleAction(
       messageContent: validation.data.messageContent.trim(),
       unlockAt: new Date(validation.data.unlockAt),
       authorName: validation.data.authorName,
+      photoUrl,
+      ifNotAchieved: validation.data.ifNotAchieved,
+      ifAchieved: validation.data.ifAchieved,
     });
 
     // 4. Return data yang sudah disanitasi
@@ -96,21 +131,23 @@ export async function createCapsuleAction(
  * Mengambil Kapsul Publik untuk Explore Feed
  */
 export async function getPublicCapsulesAction(
-  vibeFilter?: string
-): Promise<ServerActionResponse<ClientCapsule[]>> {
+  page = 1,
+  limit = 6
+): Promise<ServerActionResponse<{ capsules: ClientCapsule[]; total: number; hasMore: boolean }>> {
   try {
-    const capsules = await repository.getPublicCapsules();
+    const { capsules, total, hasMore } = await repository.getPublicCapsules(page, limit);
 
     // Sanitasi dan petakan data ke format client
     const clientCapsules = capsules.map((c) => sanitizeCapsuleForClient(c));
 
-    // Filter berdasarkan Vibe jika ditentukan
-    if (vibeFilter && vibeFilter !== "All") {
-      const filtered = clientCapsules.filter((c) => c.vibe === vibeFilter);
-      return { success: true, data: filtered };
-    }
-
-    return { success: true, data: clientCapsules };
+    return {
+      success: true,
+      data: {
+        capsules: clientCapsules,
+        total,
+        hasMore,
+      },
+    };
   } catch (err: any) {
     console.error("Error in getPublicCapsulesAction:", err);
     return {
