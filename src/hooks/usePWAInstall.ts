@@ -61,8 +61,16 @@ export function usePWAInstall() {
     setShowInstallButton(false);
   };
 
+  const isStandalone = typeof window !== "undefined" && window.matchMedia("(display-mode: standalone)").matches;
   const isLocalhost = typeof window !== "undefined" && window.location.hostname === "localhost";
-  const finalShowButton = showInstallButton || isLocalhost;
+  
+  // Jika sedang di dalam mode standalone, matikan paksa tombol meskipun di localhost
+  const finalShowButton = isStandalone ? false : (showInstallButton || isLocalhost);
 
-  return { showInstallButton: finalShowButton, isAlreadyInstalled, handleInstallClick };
+  return { 
+    showInstallButton: finalShowButton, 
+    isAlreadyInstalled, 
+    isStandalone, 
+    handleInstallClick 
+  };
 }

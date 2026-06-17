@@ -17,7 +17,7 @@ import { Download } from "lucide-react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 export default function Home() {
-  const { showInstallButton, isAlreadyInstalled, handleInstallClick } = usePWAInstall();
+  const { showInstallButton, isAlreadyInstalled, isStandalone, handleInstallClick } = usePWAInstall();
   const [activeTab, setActiveTab] = useState<"explore" | "history" | "settings">("history");
   const [vibeFilter, setVibeFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -126,7 +126,7 @@ export default function Home() {
         <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         {/* Mobile PWA Install Banner */}
-        {(showInstallButton || isAlreadyInstalled) && (
+        {!isStandalone && (showInstallButton || isAlreadyInstalled) && (
           <div className="lg:hidden mt-3 mx-2 p-3 rounded-2xl bg-[#F3E5AB]/30 border border-[#F3E5AB]/60 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
               <Download className="size-4 text-[#D4AF37] shrink-0" />
