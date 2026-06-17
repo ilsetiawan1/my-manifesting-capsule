@@ -12,6 +12,7 @@ export async function createCapsule(data: {
   ifAchieved?: string | null;
   isPrivate?: boolean;
   isAnonymousTarget?: boolean;
+  vibe: string;
 }) {
   return prisma.manifest.create({
     data,
@@ -36,6 +37,7 @@ export async function getPublicCapsules(page = 1, limit = 6) {
         photoUrl: true,
         isPrivate: true,
         isAnonymousTarget: true,
+        vibe: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -71,6 +73,7 @@ export async function getCapsulesByAccessKey(accessKey: string) {
       ifAchieved: true,
       isPrivate: true,
       isAnonymousTarget: true,
+      vibe: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -100,6 +103,7 @@ export async function getUnlockedCapsuleContent(id: string) {
       ifAchieved: true,
       isPrivate: true,
       isAnonymousTarget: true,
+      vibe: true,
     },
   });
 }
@@ -120,6 +124,7 @@ export async function getCapsuleMetadataById(id: string) {
       photoUrl: true,
       isPrivate: true,
       isAnonymousTarget: true,
+      vibe: true,
     },
   });
 }

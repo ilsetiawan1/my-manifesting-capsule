@@ -38,6 +38,7 @@ export default function CreateCapsuleForm({
   const [ifAchieved, setIfAchieved] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [isAnonymousTarget, setIsAnonymousTarget] = useState(true);
+  const [vibe, setVibe] = useState<string>("");
   
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -83,6 +84,7 @@ export default function CreateCapsuleForm({
     setIfAchieved("");
     setIsPrivate(false);
     setIsAnonymousTarget(true);
+    setVibe("");
     setStep(1);
     onClose();
   };
@@ -101,7 +103,15 @@ export default function CreateCapsuleForm({
       ifAchieved: ifAchieved || null,
       isPrivate,
       isAnonymousTarget,
+      vibe,
     };
+
+    if (!vibe) {
+      setErrors((prev) => ({ ...prev, vibe: "Kamu wajib memilih vibe/kategori kapsul harapanmu!" }));
+      toast.error("Pilih salah satu vibe kapsulmu!");
+      setIsLoading(false);
+      return;
+    }
 
     // Validasi client-side menggunakan Zod
     const validation = CreateCapsuleSchema.safeParse(inputData);
@@ -130,6 +140,7 @@ export default function CreateCapsuleForm({
       if (validation.data.ifAchieved) formData.append("ifAchieved", validation.data.ifAchieved);
       formData.append("isPrivate", String(validation.data.isPrivate));
       formData.append("isAnonymousTarget", String(validation.data.isAnonymousTarget));
+      formData.append("vibe", validation.data.vibe);
 
       const res = await createCapsuleAction(formData);
 
@@ -150,6 +161,7 @@ export default function CreateCapsuleForm({
         setIfAchieved("");
         setIsPrivate(false);
         setIsAnonymousTarget(true);
+        setVibe("");
         setStep(1);
         onSuccess(res.data?.accessKey);
         onClose();
@@ -345,6 +357,83 @@ export default function CreateCapsuleForm({
               placeholder="Apa yang ingin kamu rayakan jika impian ini berhasil?"
               className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none resize-none transition-all"
             />
+          </div>
+
+          {/* Vibe / Kategori Kapsul */}
+          <div className="space-y-3 p-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100/10 dark:border-slate-800/50">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400">
+                Vibe / Kategori Kapsul
+              </label>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                Kategori ini menentukan di feed mana kapsul harapanmu muncul
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setVibe("Career & Study");
+                  setErrors((prev) => {
+                    const newErrors = { ...prev };
+                    delete newErrors.vibe;
+                    return newErrors;
+                  });
+                }}
+                className={cn(
+                  "py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-semibold border transition-all text-center flex items-center justify-center gap-1 cursor-pointer",
+                  vibe === "Career & Study"
+                    ? "bg-[#D4AF37] border-[#D4AF37] text-white shadow-md font-bold"
+                    : "bg-transparent border-slate-200 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100/40 dark:hover:bg-slate-800/30"
+                )}
+              >
+                💼 Career & Study
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setVibe("Love & Self");
+                  setErrors((prev) => {
+                    const newErrors = { ...prev };
+                    delete newErrors.vibe;
+                    return newErrors;
+                  });
+                }}
+                className={cn(
+                  "py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-semibold border transition-all text-center flex items-center justify-center gap-1 cursor-pointer",
+                  vibe === "Love & Self"
+                    ? "bg-[#D4AF37] border-[#D4AF37] text-white shadow-md font-bold"
+                    : "bg-transparent border-slate-200 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100/40 dark:hover:bg-slate-800/30"
+                )}
+              >
+                ❤️ Love & Self
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setVibe("Random");
+                  setErrors((prev) => {
+                    const newErrors = { ...prev };
+                    delete newErrors.vibe;
+                    return newErrors;
+                  });
+                }}
+                className={cn(
+                  "py-2.5 px-1 rounded-xl text-[10px] sm:text-xs font-semibold border transition-all text-center flex items-center justify-center gap-1 cursor-pointer",
+                  vibe === "Random"
+                    ? "bg-[#D4AF37] border-[#D4AF37] text-white shadow-md font-bold"
+                    : "bg-transparent border-slate-200 dark:border-slate-700/50 text-slate-500 dark:text-slate-400 hover:bg-slate-100/40 dark:hover:bg-slate-800/30"
+                )}
+              >
+                ✨ Random
+              </button>
+            </div>
+            {errors.vibe && (
+              <p className="text-rose-500 text-[10px] font-semibold mt-1 animate-in fade-in duration-200">
+                {errors.vibe}
+              </p>
+            )}
           </div>
 
           {/* Privacy & Visibility Settings */}

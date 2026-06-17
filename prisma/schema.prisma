@@ -20,6 +20,7 @@ model Manifest {
   ifNotAchieved  String?  @map("if_not_achieved")
   isPrivate      Boolean  @default(false) @map("is_private")
   isAnonymousTarget Boolean @default(true) @map("is_anonymous_target")
+  vibe           String   @default("Random")
 
   @@index([accessKey])
   @@map("manifests")

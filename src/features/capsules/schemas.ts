@@ -28,6 +28,9 @@ export const CreateCapsuleSchema = z.object({
   ifAchieved: z.string().max(500, "Maksimal 500 karakter").nullable().optional(),
   isPrivate: z.preprocess((val) => val === "true" || val === true, z.boolean()).optional().default(false),
   isAnonymousTarget: z.preprocess((val) => val === "true" || val === true, z.boolean()).optional().default(true),
+  vibe: z
+    .string()
+    .min(1, "Kamu wajib memilih vibe/kategori kapsul harapanmu!"),
 });
 
 export const ResonateSchema = z.object({

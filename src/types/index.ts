@@ -18,6 +18,7 @@ export type Manifest = {
   ifAchieved?:    string | null;
   isPrivate:      boolean;
   isAnonymousTarget: boolean;
+  vibe:           string;
 };
 
 // ──────────────────────────────────────────────────
@@ -68,6 +69,9 @@ export type CreateCapsuleInput = {
   photoUrl?:      string | null;
   ifNotAchieved?: string | null;
   ifAchieved?:    string | null;
+  isPrivate:      boolean;
+  isAnonymousTarget: boolean;
+  vibe:           string;
 };
 
 // Tambah type baru untuk profil

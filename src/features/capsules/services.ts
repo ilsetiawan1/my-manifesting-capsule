@@ -7,53 +7,6 @@ export function generateAccessKey(): string {
   return generateKey();
 }
 
-export function getVibeCategory(targetName: string, messageContent?: string | null): VibeCategory {
-  const textToSearch = `${targetName} ${messageContent || ""}`.toLowerCase();
-  
-  if (
-    textToSearch.includes("karir") ||
-    textToSearch.includes("career") ||
-    textToSearch.includes("kerja") ||
-    textToSearch.includes("lulus") ||
-    textToSearch.includes("study") ||
-    textToSearch.includes("kuliah") ||
-    textToSearch.includes("cum laude") ||
-    textToSearch.includes("cumlaude") ||
-    textToSearch.includes("sekolah") ||
-    textToSearch.includes("usaha") ||
-    textToSearch.includes("bisnis") ||
-    textToSearch.includes("work") ||
-    textToSearch.includes("job") ||
-    textToSearch.includes("sukses") ||
-    textToSearch.includes("target") ||
-    textToSearch.includes("mimpi")
-  ) {
-    return "Career & Study";
-  }
-  
-  if (
-    textToSearch.includes("love") ||
-    textToSearch.includes("cinta") ||
-    textToSearch.includes("diri") ||
-    textToSearch.includes("self") ||
-    textToSearch.includes("kamu") ||
-    textToSearch.includes("sahabat") ||
-    textToSearch.includes("dia") ||
-    textToSearch.includes("ibu") ||
-    textToSearch.includes("mama") ||
-    textToSearch.includes("ayah") ||
-    textToSearch.includes("keluarga") ||
-    textToSearch.includes("pacar") ||
-    textToSearch.includes("friend") ||
-    textToSearch.includes("heart") ||
-    textToSearch.includes("sayang")
-  ) {
-    return "Love & Self";
-  }
-  
-  return "Random";
-}
-
 export function sanitizeCapsuleForClient(
   capsule: Omit<Manifest, "messageContent" | "isPrivate" | "isAnonymousTarget"> & {
     messageContent?: string | null;
@@ -85,7 +38,7 @@ export function sanitizeCapsuleForClient(
     ? Math.ceil((unlockAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
     : null;
 
-  const vibe = getVibeCategory(capsule.targetName, capsule.messageContent);
+  const vibe = (capsule.vibe as VibeCategory) || "Random";
 
   return {
     ...capsule,

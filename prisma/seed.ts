@@ -25,6 +25,7 @@ const seedData = [
     resonateCount: 102,
     unlockAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 10),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 40),
+    vibe: 'Love & Self',
   },
   {
     accessKey: 'DEMO-002-BBB',
@@ -37,6 +38,7 @@ const seedData = [
     resonateCount: 88,
     unlockAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 33),
+    vibe: 'Love & Self',
   },
   {
     accessKey: 'DEMO-003-CCC',
@@ -49,6 +51,7 @@ const seedData = [
     resonateCount: 15,
     unlockAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 60),
+    vibe: 'Career & Study',
   },
   {
     accessKey: 'DEMO-004-DDD',
@@ -61,6 +64,7 @@ const seedData = [
     resonateCount: 7,
     unlockAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
+    vibe: 'Love & Self',
   },
   {
     accessKey: 'DEMO-005-EEE',
@@ -73,6 +77,7 @@ const seedData = [
     resonateCount: 23,
     unlockAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 10),
+    vibe: 'Love & Self',
   },
   {
     accessKey: 'DEMO-006-GGG',
@@ -85,6 +90,7 @@ const seedData = [
     resonateCount: 3,
     unlockAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 180),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
+    vibe: 'Career & Study',
   },
   {
     accessKey: 'DEMO-007-HHH',
@@ -97,6 +103,7 @@ const seedData = [
     resonateCount: 56,
     unlockAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+    vibe: 'Love & Self',
   },
   {
     accessKey: 'DEMO-008-III',
@@ -109,6 +116,7 @@ const seedData = [
     resonateCount: 0,
     unlockAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15),
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20),
+    vibe: 'Random',
   },
 ];
 
