@@ -23,6 +23,9 @@ export const CreateCapsuleSchema = z.object({
     .max(30, "Nama pembuat maksimal 30 karakter")
     .optional()
     .transform((val) => (!val || val.trim() === "" ? "Anonim" : val)),
+  photoUrl: z.string().nullable().optional(),
+  ifNotAchieved: z.string().max(500, "Maksimal 500 karakter").nullable().optional(),
+  ifAchieved: z.string().max(500, "Maksimal 500 karakter").nullable().optional(),
 });
 
 export const ResonateSchema = z.object({

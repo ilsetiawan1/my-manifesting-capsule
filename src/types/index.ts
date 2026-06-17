@@ -13,6 +13,9 @@ export type Manifest = {
   resonateCount:  number;
   unlockAt:       Date;
   createdAt:      Date;
+  photoUrl?:      string | null;
+  ifNotAchieved?: string | null;
+  ifAchieved?:    string | null;
 };
 
 // ──────────────────────────────────────────────────
@@ -22,6 +25,7 @@ export type Manifest = {
 // ──────────────────────────────────────────────────
 export type ClientCapsule = {
   id:              string;
+  accessKey?:      string;
   targetName:      string;
   messageContent:  string | null; // null = masih terkunci
   authorName:      string | null;
@@ -32,6 +36,9 @@ export type ClientCapsule = {
   progressPercent: number;        // 0–100, computed dari selisih waktu
   daysLeft:        number | null; // null jika sudah terbuka
   vibe:            "Career & Study" | "Love & Self" | "Random"; // Computed vibe category
+  photoUrl?:       string | null;
+  ifNotAchieved?:  string | null;
+  ifAchieved?:     string | null;
 };
 
 // ──────────────────────────────────────────────────
@@ -53,4 +60,16 @@ export type CreateCapsuleInput = {
   messageContent: string;
   unlockAt:       Date;
   authorName?:    string;
+  photoUrl?:      string | null;
+  ifNotAchieved?: string | null;
+  ifAchieved?:    string | null;
+};
+
+// Tambah type baru untuk profil
+export type Profile = {
+  id: string;
+  accessKey: string;
+  name: string;
+  birthDate: Date;
+  createdAt: Date;
 };
