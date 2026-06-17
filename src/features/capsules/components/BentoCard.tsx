@@ -137,9 +137,11 @@ export default function BentoCard({ capsule, onCardClick }: BentoCardProps) {
           </div>
           <span className={cn(
             "text-[11px] font-semibold capitalize",
-            capsule.isLocked ? "text-[#D4AF37]" : "text-blue-355"
+            capsule.isAnonymousTarget
+              ? (capsule.isLocked ? "text-slate-400 dark:text-slate-500" : "text-blue-300/50")
+              : (capsule.isLocked ? "text-[#D4AF37]" : "text-blue-355")
           )}>
-            {capsule.targetName}
+            {capsule.isAnonymousTarget ? "Anonim" : capsule.targetName}
           </span>
         </div>
         

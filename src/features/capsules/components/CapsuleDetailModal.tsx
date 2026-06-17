@@ -273,9 +273,11 @@ export default function CapsuleDetailModal({
                 </div>
                 <span className={cn(
                   "text-xs sm:text-sm font-semibold capitalize",
-                  capsule.isLocked ? "text-[#D4AF37]" : "text-blue-355"
+                  capsule.isAnonymousTarget
+                    ? (capsule.isLocked ? "text-slate-400 dark:text-slate-500" : "text-blue-300/50")
+                    : (capsule.isLocked ? "text-[#D4AF37]" : "text-blue-355")
                 )}>
-                  {capsule.targetName}
+                  {capsule.isAnonymousTarget ? "Anonim" : capsule.targetName}
                 </span>
               </div>
 
