@@ -53,28 +53,28 @@
   --slate-950: #1C1917;
 
   --blue-50: #F7F4EF;
-  --blue-100: #E8DFD4;
-  --blue-200: #C8A96B;
-  --blue-300: #C8A96B;
-  --blue-400: #C8A96B;
-  --blue-500: #C8A96B;
-  --blue-600: #C8A96B;
-  --blue-700: #B8935F;
-  --blue-800: #B8935F;
-  --blue-900: #B8935F;
-  --blue-950: #2D2926;
+  --blue-100: #F7F4EF;                  /* Warm Ivory (for light text on dark card) */
+  --blue-200: #E8DFD4;                  /* Soft Beige */
+  --blue-300: #C8A96B;                  /* Champagne Gold */
+  --blue-400: #C8A96B;                  /* Champagne Gold */
+  --blue-500: #C8A96B;                  /* Champagne Gold (CTA) */
+  --blue-600: #C8A96B;                  /* Champagne Gold (CTA) */
+  --blue-700: #B8935F;                  /* Deep Gold (Hover) */
+  --blue-800: #B8935F;                  /* Deep Gold (Hover) */
+  --blue-900: #2D2926;                  /* Dark Coffee (Unlocked card background) */
+  --blue-950: #1C1917;                  /* Rich Espresso */
 
   --indigo-50: #F7F4EF;
-  --indigo-100: #E8DFD4;
-  --indigo-200: #C8A96B;
+  --indigo-100: #F7F4EF;
+  --indigo-200: #E8DFD4;
   --indigo-300: #C8A96B;
   --indigo-400: #C8A96B;
   --indigo-500: #C8A96B;
   --indigo-600: #C8A96B;
   --indigo-700: #B8935F;
   --indigo-800: #B8935F;
-  --indigo-900: #B8935F;
-  --indigo-950: #2D2926;
+  --indigo-900: #2D2926;
+  --indigo-950: #1C1917;
 
   --emerald-500: #4F8A5B;
   --emerald-600: #4F8A5B;
@@ -219,41 +219,41 @@ body {
   --sidebar-ring: #D4B06A;
 
   /* Tailwind CSS Mapped variables for Dark Mode */
-  --slate-50: #1C1917;
-  --slate-100: #44403C;
-  --slate-200: #44403C;
-  --slate-300: #B8AEA3;
-  --slate-400: #B8AEA3;
-  --slate-500: #B8AEA3;
-  --slate-600: #B8AEA3;
-  --slate-700: #F5F1EB;
-  --slate-800: #F5F1EB;
-  --slate-900: #F5F1EB;
-  --slate-950: #F5F1EB;
+  --slate-50: #1C1917;                  /* Rich Espresso - page bg */
+  --slate-100: #F5F1EB;                 /* Ivory White - main text */
+  --slate-200: #B8AEA3;                 /* Warm Gray - secondary text */
+  --slate-300: #B8AEA3;                 /* Warm Gray */
+  --slate-400: #B8AEA3;                 /* Warm Gray */
+  --slate-500: #B8AEA3;                 /* Warm Gray */
+  --slate-600: #B8AEA3;                 /* Warm Gray */
+  --slate-700: #44403C;                 /* Stone Border - dark border/divider */
+  --slate-800: #292524;                 /* Warm Stone - card background */
+  --slate-900: #292524;                 /* Warm Stone - card background */
+  --slate-950: #1C1917;                 /* Rich Espresso - page bg */
 
   --blue-50: #1C1917;
-  --blue-100: #44403C;
-  --blue-200: #D4B06A;
-  --blue-300: #D4B06A;
+  --blue-100: #F5F1EB;                  /* Ivory White (for light text on dark card) */
+  --blue-200: #B8AEA3;                  /* Warm Gray */
+  --blue-300: #D4B06A;                  /* Soft Gold */
   --blue-400: #D4B06A;
-  --blue-500: #D4B06A;
-  --blue-600: #D4B06A;
-  --blue-700: #D4B06A;
-  --blue-800: #D4B06A;
-  --blue-900: #D4B06A;
-  --blue-950: #F5F1EB;
+  --blue-500: #D4B06A;                  /* Soft Gold (CTA) */
+  --blue-600: #D4B06A;                  /* Soft Gold (CTA) */
+  --blue-700: #B8AEA3;
+  --blue-800: #B8AEA3;
+  --blue-900: #1C1917;                  /* Rich Espresso (Unlocked card background) */
+  --blue-950: #1C1917;
 
   --indigo-50: #1C1917;
-  --indigo-100: #44403C;
-  --indigo-200: #D4B06A;
+  --indigo-100: #F5F1EB;
+  --indigo-200: #B8AEA3;
   --indigo-300: #D4B06A;
   --indigo-400: #D4B06A;
   --indigo-500: #D4B06A;
   --indigo-600: #D4B06A;
-  --indigo-700: #D4B06A;
-  --indigo-800: #D4B06A;
-  --indigo-900: #D4B06A;
-  --indigo-950: #F5F1EB;
+  --indigo-700: #B8AEA3;
+  --indigo-800: #B8AEA3;
+  --indigo-900: #1C1917;
+  --indigo-950: #1C1917;
 
   --emerald-500: #4F8A5B;
   --emerald-600: #4F8A5B;

@@ -173,10 +173,10 @@ export default function CreateCapsuleForm({
               onChange={(e) => setAuthorName(e.target.value)}
               placeholder="Anonim"
               className={cn(
-                "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
+                "w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
                 errors.authorName
-                  ? "border-rose-300 focus:ring-rose-500/20"
-                  : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
+                  ? "border-rose-300 dark:border-rose-900/50 focus:ring-rose-500/20"
+                  : "border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-blue-500/20"
               )}
             />
             {errors.authorName && (
@@ -197,10 +197,10 @@ export default function CreateCapsuleForm({
               onChange={(e) => setTargetName(e.target.value)}
               placeholder="Untuk siapa manifestasi ini? (e.g. Diriku)"
               className={cn(
-                "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
+                "w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
                 errors.targetName
-                  ? "border-rose-300 focus:ring-rose-500/20"
-                  : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
+                  ? "border-rose-300 dark:border-rose-900/50 focus:ring-rose-500/20"
+                  : "border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-blue-500/20"
               )}
             />
             {errors.targetName && (
@@ -221,10 +221,10 @@ export default function CreateCapsuleForm({
               rows={3}
               placeholder="Tulis mimpi, harapan, dan manifestasimu di sini..."
               className={cn(
-                "w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all resize-none",
+                "w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all resize-none",
                 errors.messageContent
-                  ? "border-rose-300 focus:ring-rose-500/20"
-                  : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
+                  ? "border-rose-300 dark:border-rose-900/50 focus:ring-rose-500/20"
+                  : "border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-blue-500/20"
               )}
             />
             <div className="flex items-center justify-between mt-1">
@@ -275,10 +275,10 @@ export default function CreateCapsuleForm({
                 min={getTomorrowDateString()}
                 onChange={(e) => setUnlockAt(e.target.value)}
                 className={cn(
-                  "w-full bg-slate-50 text-slate-900 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
+                  "w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 py-3 rounded-2xl text-base lg:text-sm border focus:outline-none focus:ring-2 transition-all",
                   errors.unlockAt
-                    ? "border-rose-300 focus:ring-rose-500/20"
-                    : "border-slate-100 focus:border-slate-200 focus:ring-blue-500/20"
+                    ? "border-rose-300 dark:border-rose-900/50 focus:ring-rose-500/20"
+                    : "border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-blue-500/20"
                 )}
               />
             </div>
@@ -319,7 +319,7 @@ export default function CreateCapsuleForm({
               onChange={(e) => setIfNotAchieved(e.target.value)}
               rows={3}
               placeholder="Apa yang akan kamu lakukan jika impian ini belum terwujud?"
-              className="w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border border-slate-100 focus:border-slate-200 focus:ring-2 focus:ring-blue-500/20 focus:outline-none resize-none transition-all"
+              className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none resize-none transition-all"
             />
           </div>
 
@@ -333,7 +333,7 @@ export default function CreateCapsuleForm({
               onChange={(e) => setIfAchieved(e.target.value)}
               rows={3}
               placeholder="Apa yang ingin kamu rayakan jika impian ini berhasil?"
-              className="w-full bg-slate-50 text-slate-900 placeholder:text-slate-400/80 px-4 py-3 rounded-2xl text-base lg:text-sm border border-slate-100 focus:border-slate-200 focus:ring-2 focus:ring-blue-500/20 focus:outline-none resize-none transition-all"
+              className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400/80 dark:placeholder:text-slate-500 px-4 py-3 rounded-2xl text-base lg:text-sm border border-slate-100 dark:border-slate-700 focus:border-slate-200 dark:focus:border-slate-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none resize-none transition-all"
             />
           </div>
 
