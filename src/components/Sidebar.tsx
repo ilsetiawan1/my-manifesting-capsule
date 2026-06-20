@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Compass, Settings, Plus, Heart, Lock, Unlock, Download } from "lucide-react";
+import { Compass, Settings, Plus, Heart, Lock, Unlock, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -98,7 +98,7 @@ export default function Sidebar({
               onClick={handleInstallClick}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-[#D4AF37] hover:bg-slate-50/50 dark:hover:bg-slate-800/30 active:scale-98 transition-all"
             >
-              <Download className="size-5 text-[#D4AF37]" />
+              <Smartphone className="size-5 text-[#D4AF37]" />
               <span>Unduh Aplikasi</span>
             </button>
           )}
