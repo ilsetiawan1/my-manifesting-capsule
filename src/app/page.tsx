@@ -13,7 +13,7 @@ import { getPublicCapsulesAction, getMyCapsulesAction } from "@/features/capsule
 import { ClientCapsule } from "@/types";
 import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
-import { Download } from "lucide-react";
+import { Smartphone } from "lucide-react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
 export default function Home() {
@@ -129,7 +129,7 @@ export default function Home() {
         {!isStandalone && (showInstallButton || isAlreadyInstalled) && (
           <div className="lg:hidden mt-3 mx-2 p-3 rounded-2xl bg-[#F3E5AB]/30 border border-[#F3E5AB]/60 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-200">
-              <Download className="size-4 text-[#D4AF37] shrink-0" />
+              <Smartphone className="size-4 text-[#D4AF37] shrink-0" />
               <span className="text-[11px] font-medium leading-tight">
                 {isAlreadyInstalled
                   ? "Aplikasi sudah terpasang. Buka dari Layar Utama Anda untuk pengalaman terbaik!"
