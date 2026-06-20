@@ -2,45 +2,35 @@
 
 import React from "react";
 import Image from "next/image";
-import { Compass, Settings, Plus, Heart, Lock, Unlock, Smartphone } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Compass, Settings, Plus, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMain } from "@/app/context/MainContext";
 
 interface SidebarProps {
-  activeTab: "explore" | "settings";
-  setActiveTab: (tab: "explore" | "settings") => void;
-  activeSubTab: "global" | "history";
-  setActiveSubTab: (subTab: "global" | "history") => void;
   onAddClick: () => void;
-  vibeFilter: string;
-  setVibeFilter: (filter: string) => void;
-  stats: { total: number; unlocked: number; resonateCount: number };
   showInstallButton?: boolean;
   handleInstallClick?: () => void;
 }
 
 export default function Sidebar({
-  activeTab,
-  setActiveTab,
-  activeSubTab,
-  setActiveSubTab,
   onAddClick,
-  vibeFilter,
-  setVibeFilter,
-  stats,
   showInstallButton = false,
   handleInstallClick,
 }: SidebarProps) {
-  const vibes = ["All", "Career & Study", "Love & Self", "Random"];
+  const pathname = usePathname();
+  const isExploreActive = pathname === "/";
+  const isSettingsActive = pathname === "/settings";
 
-  const handleTabClick = (tab: "explore" | "settings") => {
-    setActiveTab(tab);
-  };
+  const { vibeFilter, setVibeFilter, activeSubTab, setActiveSubTab, stats } = useMain();
+  const vibes = ["All", "Career & Study", "Love & Self", "Random"];
 
   return (
     <aside className="hidden lg:flex flex-col w-80 h-screen sticky top-0 bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 p-6 justify-between select-none transition-colors duration-200">
       <div className="space-y-8">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo/logo.png"
             alt="The Manifesting Capsule"
@@ -56,7 +46,7 @@ export default function Sidebar({
               Silent Sanctuary
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Create Button */}
         <button
@@ -69,30 +59,30 @@ export default function Sidebar({
 
         {/* Navigation Tabs */}
         <div className="space-y-1.5">
-          <button
-            onClick={() => handleTabClick("explore")}
+          <Link
+            href="/"
             className={cn(
               "w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-98",
-              activeTab === "explore"
-                ? "bg-slate-50 dark:bg-slate-850 text-blue-600 dark:text-blue-400"
+              isExploreActive
+                ? "bg-slate-50 dark:bg-slate-800/60 text-blue-600 dark:text-blue-400 font-bold"
                 : "text-slate-500 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 hover:text-slate-800 dark:hover:text-slate-200"
             )}
           >
             <Compass className="size-5" />
             <span>Explore Feed</span>
-          </button>
-          <button
-            onClick={() => handleTabClick("settings")}
+          </Link>
+          <Link
+            href="/settings"
             className={cn(
               "w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-98",
-              activeTab === "settings"
-                ? "bg-slate-50 dark:bg-slate-850 text-blue-600 dark:text-blue-400"
+              isSettingsActive
+                ? "bg-slate-50 dark:bg-slate-800/60 text-blue-600 dark:text-blue-400 font-bold"
                 : "text-slate-500 dark:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 hover:text-slate-800 dark:hover:text-slate-200"
             )}
           >
             <Settings className="size-5" />
             <span>Settings</span>
-          </button>
+          </Link>
           {showInstallButton && (
             <button
               onClick={handleInstallClick}
@@ -105,7 +95,7 @@ export default function Sidebar({
         </div>
 
         {/* Sidebar sub-controls (only visible on explore tab) */}
-        {activeTab === "explore" && (
+        {isExploreActive && (
           <div className="space-y-5 pt-2 animate-in fade-in slide-in-from-top-2 duration-300">
             {/* Vibe Filters */}
             <div className="space-y-2">
