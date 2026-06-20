@@ -346,7 +346,10 @@ export default function ShareModal({ capsule, onClose }: ShareModalProps) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+        className={cn(
+          "absolute inset-0 transition-colors duration-300",
+          theme === "light" ? "bg-slate-100/60 backdrop-blur-md" : "bg-slate-950/60 backdrop-blur-md"
+        )}
       />
 
       {/* Share Dialog */}
@@ -359,20 +362,30 @@ export default function ShareModal({ capsule, onClose }: ShareModalProps) {
         {/* Close Button (Relatively placed inside scrollable container) */}
         <button
           onClick={onClose}
-          className="sticky top-2 self-end mr-2 p-2 rounded-full bg-slate-900/80 hover:bg-slate-900 text-white z-30 shadow-lg active:scale-90 transition-all mb-2"
+          className={cn(
+            "sticky top-2 self-end mr-2 p-2 rounded-full z-30 shadow-md active:scale-90 transition-all mb-2",
+            theme === "light"
+              ? "bg-white hover:bg-slate-100 text-slate-800 border border-slate-200"
+              : "bg-slate-900/80 hover:bg-slate-850 text-white border border-white/10"
+          )}
           aria-label="Tutup"
         >
           <X className="size-5" />
         </button>
 
         {/* Theme Switcher tabs/buttons */}
-        <div className="flex bg-slate-900/80 dark:bg-black/40 backdrop-blur-md p-1 rounded-2xl border border-white/10 w-full mb-4 z-10 justify-between gap-1 shadow-lg">
+        <div className={cn(
+          "flex backdrop-blur-md p-1 rounded-2xl w-full mb-4 z-10 justify-between gap-1 shadow-lg border transition-all duration-300",
+          theme === "light"
+            ? "bg-white/80 border-slate-200"
+            : "bg-slate-900/80 border-white/10"
+        )}>
           <button
             onClick={() => setTheme("light")}
             className={cn(
               "flex-1 py-2 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5",
               theme === "light"
-                ? "bg-white text-slate-900 shadow-sm"
+                ? "bg-slate-200/50 text-slate-900 shadow-sm border border-slate-300/30"
                 : "text-white/60 hover:text-white"
             )}
           >
@@ -383,8 +396,8 @@ export default function ShareModal({ capsule, onClose }: ShareModalProps) {
             className={cn(
               "flex-1 py-2 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5",
               theme === "dark"
-                ? "bg-white text-slate-900 shadow-sm"
-                : "text-white/60 hover:text-white"
+                ? "bg-slate-950 text-white shadow-sm border border-white/10"
+                : "text-slate-500 hover:text-slate-200"
             )}
           >
             <Moon className="size-3.5" /> Tema Gelap
@@ -434,7 +447,12 @@ export default function ShareModal({ capsule, onClose }: ShareModalProps) {
           <button
             onClick={handleDownload}
             disabled={isDownloading}
-            className="flex-1 flex items-center justify-center gap-2 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800/80 text-white rounded-2xl text-xs font-bold shadow-lg shadow-blue-500/10 active:scale-95 transition-all"
+            className={cn(
+              "flex-1 flex items-center justify-center gap-2 py-3 text-white rounded-2xl text-xs font-bold shadow-lg active:scale-95 transition-all",
+              theme === "light"
+                ? "bg-blue-600 hover:bg-blue-700 shadow-blue-600/10 disabled:bg-blue-800/80"
+                : "bg-blue-500 hover:bg-blue-600 shadow-blue-500/15 disabled:bg-blue-700/80"
+            )}
           >
             <Download className="size-4" />
             <span>{isDownloading ? "Menyimpan..." : "Simpan Foto"}</span>
@@ -443,7 +461,12 @@ export default function ShareModal({ capsule, onClose }: ShareModalProps) {
           {/* Copy Link Button */}
           <button
             onClick={handleCopyLink}
-            className="flex items-center justify-center p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-2xl border border-slate-700/50 active:scale-95 transition-all"
+            className={cn(
+              "flex items-center justify-center p-3 rounded-2xl active:scale-95 transition-all border shadow-sm",
+              theme === "light"
+                ? "bg-white hover:bg-slate-100 text-slate-700 border-slate-200"
+                : "bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border-white/10"
+            )}
             aria-label="Salin Tautan"
           >
             <LinkIcon className="size-4" />
